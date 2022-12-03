@@ -12,36 +12,15 @@
           height="70"
          />
         <v-toolbar-title> Chino y Menacho</v-toolbar-title>  <!-- titulo -->
-        <v-spacer></v-spacer> <!-- ezquina derecha -->
+        <v-spacer></v-spacer> <!-- equina derecha -->
 
         <!-- Botones de encabezado -->
-        <v-btn text rounded> Inicio </v-btn> <!-- text = transparencia, rounded = sombreado redondeado-->
-        <v-btn text rounded> Mis compras </v-btn>
-        <v-btn text rounded> Inicia Sesión </v-btn>
-        <v-btn text rounded> Regístrate</v-btn>
+        <v-btn text rounded><RouterLink to="/"> Inicio </RouterLink></v-btn> <!-- text = transparencia, rounded = sombreado redondeado-->
+        <v-btn text rounded><RouterLink to="/login"> Inicia Sesión </RouterLink> </v-btn>
+        <v-btn text rounded><RouterLink to="/register"> Regístrate </RouterLink> </v-btn>
 
       </v-app-bar>
-
-
-
-      <!-- Home section start-->
-
-      <section class="home" id="home">
-        <div class="content">
-          <h3 align="center">Chino y Menacho</h3>
-          <span align="center"> Emprendimiento que organiza fiestas juveniles</span>
-          <!--<a href="#" class="btn">shop now</a>-->
-
-        </div>
-      </section>
-
-      <!-- Home section end-->
-
-
-<section class="full-width formated-section">
-  
-</section>
-
+      <RouterView></RouterView>
 
       <!-- inferior-->
       <v-footer
@@ -89,10 +68,7 @@ export default{
 }
 </script>
 
-
-<style scoped>
-
-/*
+<style scope>
 .barraNav{
   z-index:0
 }
@@ -106,101 +82,4 @@ export default{
   padding:2rem 9%;
 }
 
-/* col-sm */
-@media (min-width: 768px) and (max-width: 991px) {
-    
-  }
-  
-  /* col-md */
-  @media (min-width: 992px) and (max-width: 1199px) {
-      
-  }
-  
-  /* col-lg */
-  @media (min-width: 1200px) {
-      
-  }
-
-
-.home{
-  position: relative;
-	width: 100%;
-	height: calc(100vh - 50px);
-	background-color: #F5F5F5;
-	background-size: cover;
-	background-position: center;
-	transition: all .1s ease-out;
-	background-image: url('assets/fiesta2.jpeg');
-	animation: banner 28s infinite linear;
-}
-
-.home .content{
-  margin: 0;
-	padding: 0;
-	width: 100%;
-	height: 100%;
-	color: #FFF;
-	background-color: rgba(255, 252, 247, 0.148);
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-
-}
-
-.home .content h3{
-    font-size: 6rem;
-    color: rgb(0, 0, 0);
-}
-
-.home .content span{
-  text-decoration: none;
-	color: rgb(255, 255, 255);
-	padding: 9px 20px;
-	text-transform: uppercase;
-  transition: all .3s ease-in-out;
-  border: 1px solid rgb(255, 255, 255);
-}
-
-/*
-.home{
-    display: flex;
-    align-items: center;
-    min-height: 100vh;
-    background:url(assets/banner_fiesta3.jpg) no-repeat;
-    background-size: cover;
-    background-position: center;
-}
-
-.home .content{
-  text-decoration: none;
-	color: #FFF;
-	padding: 9px 20px;
-	border: 1px solid #FFF;
-	text-transform: uppercase;
-	transition: all .3s ease-in-out;
-
-    align-items: center;
-    max-width: 50rem;
-}
-
-.home .content h3{
-    font-size: 6rem;
-    color:rgb(255, 255, 255);
-}
-
-.home .content span{
-    font-size: 3.5rem;
-    color:rgb(255, 255, 255);;
-    padding:1rem 0;
-    line-height: 1.5;
-}
-*/
-.home .content p{
-    font-size: 1.5rem;
-    color:rgb(255, 255, 255);
-    padding:1rem 0;
-    line-height: 1.5;
-}
 </style>
-
