@@ -1,49 +1,3 @@
-<script>
-//import { RouterLink, RouterView } from "vue-router";
-import router from "../router/index.js";
-import { useUserStore } from "../stores/user";
-export default {
-  name: "RegisterView",
-  data() {
-    return {
-      username: "",
-      password: "",
-      email: "",
-      name: "",
-      lastname: "",
-    };
-  },
-  methods: {
-    onUsernameInput(e) {
-      this.username = e.target.value;
-    },
-    onPasswordInput(e) {
-      this.password = e.target.value;
-    },
-    onEmailInput(e) {
-      this.email = e.target.value;
-    },
-    onNameInput(e) {
-      this.name = e.target.value;
-    },
-    onLastnameInput(e) {
-      this.lastname = e.target.value;
-    },
-    onRegister() {
-      const userStore = useUserStore();
-      userStore.register(
-        this.username,
-        this.password,
-        this.email,
-        this.name,
-        this.lastname
-      );
-      router.push({ path: "/", query: { username: this.username } });
-    },
-  },
-};
-</script>
-
 <template>
   <head>
     <meta charset="utf-8" />
@@ -55,11 +9,20 @@ export default {
       <input
         type="text"
         class="controls"
+        placeholder="DNI"
+        aria-label="documento"
+        aria-describedby="basic-addon2"
+        v-bind:value="username"
+        v-on:input="onUsernameInput"
+      />
+      <input
+        type="text"
+        class="controls"
         placeholder="Nombre"
         aria-label="nombre"
         aria-describedby="basic-addon2"
-        :value="nombre"
-        @input="onNameInput"
+        v-bind:value="name"
+        v-on:input="onNameInput"
       />
       <input
         type="text"
@@ -67,26 +30,17 @@ export default {
         placeholder="Apellido"
         aria-label="apellido"
         aria-describedby="basic-addon2"
-        :value="apellidos"
-        @input="onLastnameInput"
+        v-bind:value="lastname"
+        v-on:input="onLastnameInput"
       />
       <input
         type="text"
         class="controls"
-        placeholder="Contraseña"
-        aria-label="password"
+        placeholder="Telefono"
+        aria-label="telefono"
         aria-describedby="basic-addon2"
-        :value="password"
-        @input="onPasswordInput"
-      />
-      <input
-        type="text"
-        class="controls"
-        placeholder="DNI"
-        aria-label="documento"
-        aria-describedby="basic-addon2"
-        :value="documento"
-        @input="onUsernameInput"
+        v-bind:value="phone"
+        v-on:input="onPhoneInput"
       />
       <input
         type="text"
@@ -94,21 +48,104 @@ export default {
         placeholder="Correo electronico"
         aria-label="email"
         aria-describedby="basic-addon2"
-        :value="email"
-        @input="onEmailInput"
+        v-bind:value="email"
+        v-on:input="onEmailInput"
       />
-      <button @click="onRegister" class="buttons" type="button">
+      <input
+        type="text"
+        class="controls"
+        placeholder="Contraseña"
+        aria-label="password"
+        aria-describedby="basic-addon2"
+        v-bind:value="password"
+        v-on:input="onPasswordInput"
+      />
+      <button v-on:click="onRegister" class="buttons" type="button">
         Registrarse
       </button>
-
+      <meta
+        v-if="register && success"
+        id="success"
+        http-equiv="refresh"
+        content="0;
+          url='http://127.0.0.1:5173/login'"
+      />
       <p>
         <a><RouterLink to="/login">¿Ya tienes una cuenta?</RouterLink></a>
       </p>
     </section>
-    <RouterView />
   </body>
 </template>
+<script>
+//import { RouterLink, RouterView } from "vue-router";
+export default {
+  name: "RegisterView",
+  data() {
+    return {
+      username: "",
+      password: "",
+      email: "",
+      name: "",
+      lastname: "",
+      phone: "",
+      register: false,
+      success: false,
+    };
+  },
+  methods: {
+    onUsernameInput(e) {
+      this.register = false;
+      this.username = e.target.value;
+    },
+    onPasswordInput(e) {
+      this.register = false;
+      this.password = e.target.value;
+    },
+    onEmailInput(e) {
+      this.register = false;
+      this.email = e.target.value;
+    },
+    onNameInput(e) {
+      this.register = false;
+      this.name = e.target.value;
+    },
+    onLastnameInput(e) {
+      this.register = false;
+      this.lastname = e.target.value;
+    },
+    onPhoneInput(e) {
+      this.register = false;
+      this.phone = e.target.value;
+    },
+    onRegister() {
+      const url = "http://localhost:5000/register/async";
 
+      const body = {
+        username: this.username,
+        name: this.name,
+        lastname: this.lastname,
+        email: this.email,
+        password: this.password,
+        phone: this.phone,
+      };
+
+      fetch(url, {
+        method: "POST",
+        body: JSON.stringify(body),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          this.register = true;
+          this.success = true;
+        });
+    }
+  },
+};
+</script>
 <style>
 @media (min-width: 1024px) {
   .about {
@@ -131,7 +168,7 @@ body {
 
 .form-register {
   width: 350px;
-  height: 540px;
+  height: 600px;
   background: #e3dddd;
   margin: auto;
   margin-top: 70px;

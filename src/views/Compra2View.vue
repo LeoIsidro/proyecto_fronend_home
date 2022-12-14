@@ -13,7 +13,7 @@ export default {
       evento: "Fiesta de Año Nuevo",
     };
   },
-  
+
   methods: {
     onAddProduct(producto) {
       this.productos.push(producto);
@@ -24,12 +24,12 @@ export default {
     onTotal(total) {
       this.total = total;
     },
-    onContinue(){
+    onContinue() {
       this.$router.push({ path: "/pago", query: { total: this.total } });
     },
-    onBack(){
+    onBack() {
       this.$router.push({ path: "/productos", query: { total: this.total } });
-    }
+    },
   },
 };
 </script>
@@ -45,13 +45,25 @@ export default {
       <h2>Entrada</h2>
       <p>
         Recuerde que los eventos Chino y Menacho solo vende una entrada por
-        Participante. A continuación se le redireccionará a la página de
-        pago para que pueda adquirir su entrada.
+        Participante. A continuación se le redireccionará a la página de pago
+        para que pueda adquirir su entrada.
       </p>
       <div>
-        <a><RouterLink to="/"><button class="button_1" type="button">Regresar</button></RouterLink></a>
+        <a
+          ><RouterLink to="/"
+            ><button class="button_1" type="button">
+              Regresar
+            </button></RouterLink
+          ></a
+        >
 
-        <a><RouterLink to="/pago"><button class="button_2" type="button">Continuar</button></RouterLink></a>
+        <a
+          ><RouterLink to="/pago"
+            ><button class="button_2" type="button">
+              Continuar
+            </button></RouterLink
+          ></a
+        >
       </div>
     </section>
   </body>
